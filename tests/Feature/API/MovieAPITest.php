@@ -29,6 +29,43 @@ class MovieAPITest extends TestCase
     }
 
     /** @test */
+    public function validation_fails_on_incorrect_inputs()
+    {
+        // fails on non-existing genre_id
+        $this->post('api/movies', [
+            'name' => 'Star Wars',
+            'year' => 1987,
+            'description' => "In a far away galaxy..",
+            'genre_ids' => [1],
+        ])->assertInvalid();
+
+        // fails on incorrect year input
+        $this->post('api/movies', [
+            'name' => 'Star Wars',
+            'year' => 2069,
+            'description' => "In a far away galaxy..",
+        ])->assertInvalid();
+
+        // fails when name is missing
+        $this->post('api/movies', [
+            'year' => 1987,
+            'description' => "In a far away galaxy..",
+        ])->assertInvalid();
+        
+        // fails when year is missing
+        $this->post('api/movies', [
+            'name' => 'Star Wars',
+            'description' => "In a far away galaxy..",
+        ])->assertInvalid();
+        
+        // fails when description is missing
+        $this->post('api/movies', [
+            'name' => 'Star Wars',
+            'year' => 2069,
+        ])->assertInvalid();
+    }
+
+    /** @test */
     public function index_test()
     {
         $genres = Genre::factory()->count(2)->create();

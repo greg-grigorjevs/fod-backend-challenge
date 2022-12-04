@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
 
 class StoreMovieRequest extends FormRequest
 {
@@ -23,9 +24,10 @@ class StoreMovieRequest extends FormRequest
      */
     public function rules()
     {
+        $thisYear = Carbon::now()->year;
         return [
-            'name' => 'required|string|unique:App\Models\Movie,name|max:255',
-            'year' => 'required|integer|between:1900,2022',
+            'name' => 'required|string|max:255',
+            'year' => "required|integer|between:1900,{$thisYear}",
             'description' => 'required|string',
             'genre_ids' => 'sometimes|required|array|exists:App\Models\Genre,id',
         ];
