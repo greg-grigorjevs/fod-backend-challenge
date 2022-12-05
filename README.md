@@ -7,6 +7,10 @@ Then run the migrations
 ```php
 php artisan migrate
 ```
+Start the server
+```
+php artisan serve
+```
 Then run the tests to see that everything is working
 ```
 php artisan test
