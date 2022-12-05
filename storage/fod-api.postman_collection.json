@@ -1,0 +1,183 @@
+{
+	"info": {
+		"_postman_id": "23a25e1c-760b-431c-916a-36e61f008730",
+		"name": "fod-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12065035"
+	},
+	"item": [
+		{
+			"name": "Create Movie",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var xsrfCookie = postman.getResponseCookie(\"XSRF-TOKEN\");",
+							"postman.setEnvironmentVariable(\"xsrf-token\", xsrfCookie.value);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrf-token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Avengers",
+							"type": "text"
+						},
+						{
+							"key": "year",
+							"value": "2019",
+							"type": "text"
+						},
+						{
+							"key": "genre_ids[]",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "genre_ids[]",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "It's avengers, what else do you want to hear ? ",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/api/movies",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Movies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/movies",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Movie",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/movies/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"movies",
+						"1"
+					],
+					"query": [
+						{
+							"key": "fetchImdbRating",
+							"value": "true",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Movie",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/movies/7",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"movies",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Movies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/movies?name=in",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"movies"
+					],
+					"query": [
+						{
+							"key": "genre_ids[]",
+							"value": "1,2",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "in"
+						},
+						{
+							"key": "year",
+							"value": "2005",
+							"disabled": true
+						},
+						{
+							"key": "genre",
+							"value": "action",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
